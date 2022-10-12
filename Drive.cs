@@ -23,29 +23,33 @@ public class Drive : MonoBehaviour
 
 
         //Vector3 position = HolisticMath.Translate(rotation * 0.1f, translation, 0);
-        Vector3 position = HolisticMath.Translate(0, translation, 0);
-        transform.position += position;
+
 
         // Rotate around our y-axis
         //transform.Rotate(0, 0, -rotation);
-        //Debug.Log(rotation);
         direction += new Vector3(rotation, 0, 0);
-        Debug.Log(direction);
-        Coords dirNormal = HolisticMath.GetNormal(new Coords(direction));
-        direction = dirNormal.ToVector();
-        float a = HolisticMath.Angle(new Coords(0, 1, 0), new Coords(direction)); 
+        //Debug.Log(direction);
+        //Coords dirNormal = HolisticMath.GetNormal(new Coords(direction));
+
+        //float a = HolisticMath.Angle(new Coords(1, 0, 0), new Coords(direction));
+        float a = (direction.x % 628.66f) * 0.01f;
+        //Debug.Log("Direction : " + direction +
+        //" \n a : " + a + " x  : " + translation * Mathf.Sin(-transform.rotation.z));
+
+        Debug.Log("ang:  " + -(-transform.rotation.z * 100) * Mathf.PI / 180 + "sin : " + Mathf.Sin((-transform.rotation.z * 100) * Mathf.PI / 180));    
         bool clockwise = false;
-        if (HolisticMath.Cross(new Coords(transform.up), new Coords(direction)).z < 0)
-        {
-                clockwise = true;
-        }
-        Coords newDir = HolisticMath.Rotate(new Coords(0, 1, 0), a, clockwise);
+        //if (HolisticMath.Cross(new Coords(transform.up), new Coords(direction)).z < 0)
+        //{
+        //    clockwise = true;
+        //}
+        Coords newDir = HolisticMath.Rotate(new Coords(0, 1, 0), -a, clockwise);
         if (direction.x != 0)
             transform.up += new Vector3(newDir.x, newDir.y, newDir.z);
 
 
 
-
+        Vector3 position = HolisticMath.Translate(0, translation, 0, -transform.rotation.z * 100);
+        transform.position += position;
 
     }
 }

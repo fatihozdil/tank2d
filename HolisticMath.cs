@@ -67,9 +67,15 @@ public class HolisticMath
     }
 
 
-    static public Vector3 Translate(float x, float y, float z)
+    static public Vector3 Translate(float x, float y, float z, float angle)
     {
+        if (Mathf.Round(y * Mathf.Sin(angle * Mathf.PI / 180)) != 1 || Mathf.Round(y * Mathf.Sin(angle * Mathf.PI / 180)) != -1)
+        {
+            x = y * Mathf.Sin(angle * Mathf.PI / 180);
 
+        }
+        y = y * Mathf.Cos(angle * Mathf.PI / 180);
+        //Debug.Log("x : " + x);
         Vector3 vector = new Vector3(x, y, z);
         return vector;
     }
